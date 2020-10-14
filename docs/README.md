@@ -2,7 +2,7 @@
 
 ## Installation
 
-make sure docker and docker-compose are installed
+Make sure docker and docker-compose are installed.
 
 ## To run
 
@@ -22,16 +22,18 @@ The next day when you run `docker-compose up --build` it will fetch the latest p
 
 http://localhost:8080/  in the browser
 
+```
 Specify the following to login
 System: Mysql
 Server: db
 Username: user
 Password: 123
 Database: test
+```
 
 Click "Select data" to view tracks and track_popularity tables in test db
 
-Examples
+Example data screenshots
 
 ![tracks table](tracks.png)
 
