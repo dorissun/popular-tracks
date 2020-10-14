@@ -1,7 +1,7 @@
 import requests
 import json
 import time
-from datetime import date, datetime
+from datetime import date
 import base64
 
 import mysql.connector
