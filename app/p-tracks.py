@@ -42,9 +42,9 @@ def get_track(access_token, track_id):
     'Content-Type': 'application/json',
         'Authorization': ' '.join(['Bearer', access_token])
     }
-    params = (
-        ('market', 'ES'),
-    )
+    params = [
+        ('market', 'SE'),
+    ]
 
     r = requests.get(url, headers=headers, params=params)
     r_dict = json.loads(r.text)
