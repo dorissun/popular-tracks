@@ -16,10 +16,6 @@ services:
 
     app:
       build: app
-#      restart: always
-
-    shell:
-      image: ubuntu
 
     adminer:
       image: adminer
