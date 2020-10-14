@@ -32,3 +32,7 @@ Database: test
 Click "Select data" to view tracks and track_popularity tables in test db
 
 Examples
+
+![tracks table](tracks.png)
+
+![track_popularity table](track_popularity.png)
