@@ -22,9 +22,15 @@ def get_access_token(id_secret_file):
     headers = {"Authorization": "Basic " + base64_auth}
 
     r = requests.post(url, data=body, headers=headers)
-    response_dict = json.loads(r.text)
-    access_token = response_dict.get("access_token")
-    return access_token
+    if r.status_code == 200:
+        print("Requesting access token Okey.")
+        response_dict = json.loads(r.text)
+        access_token = response_dict.get("access_token")
+        return access_token
+    else:
+        print("Requesting access token failed with status code: " + str(r.status_code))
+        print("Please double check that your Spotify Client ID and Client Secret is filled in id_secret.json configuration file.")
+        return ""
 
 
 def get_track(access_token, track_id):
@@ -39,20 +45,23 @@ def get_track(access_token, track_id):
     ]
 
     r = requests.get(url, headers=headers, params=params)
-    r_dict = json.loads(r.text)
-    track_info = {
-        "id": r_dict.get("id"),
-        "name": r_dict.get("name"),
-        "uri": r_dict.get("uri"),
-        "duration_ms": r_dict.get("duration_ms"),
-        "release_date": r_dict.get("album").get("release_date"),
-        "fetch_date": date.today().strftime("%Y-%m-%d"),
-        "popularity": r_dict.get("popularity"),
-    }
-
-    return track_info
-
-
+    if r.status_code == 200:
+        print("Requesting track info Okey.")
+        r_dict = json.loads(r.text)
+        track_info = {
+            "id": r_dict.get("id"),
+            "name": r_dict.get("name"),
+            "uri": r_dict.get("uri"),
+            "duration_ms": r_dict.get("duration_ms"),
+            "release_date": r_dict.get("album").get("release_date"),
+            "fetch_date": date.today().strftime("%Y-%m-%d"),
+            "popularity": r_dict.get("popularity"),
+        }
+        return track_info
+    else:
+        print("Requesting track info failed with status code: " + str(r.status_code))
+        return {}
+    
 def db_connection_cursor():
     config = {
         "user": "user",
@@ -147,11 +156,18 @@ def fetch_and_save(access_token, connection, track_ids_file):
     with open(track_ids_file, "r") as f:
         for line in f:
             track_info = get_track(access_token, line.strip("\n"))
-            save_tracks(connection, track_info)
-            save_track_popularity(connection, track_info)
+            if track_info != {}:
+                save_tracks(connection, track_info)
+                save_track_popularity(connection, track_info)
+            else:
+                print("Track " + line.strip("\n") + "has no valid info to save.") 
+                continue
 
 
 if __name__ == "__main__":
     connection = db_connection_cursor()
     db_setup(connection)
-    fetch_and_save(get_access_token("id_secret.json"), connection, "track_ids.txt")
+
+    access_token = get_access_token("id_secret.json")
+    if access_token != "":
+        fetch_and_save(access_token, connection, "track_ids.txt")

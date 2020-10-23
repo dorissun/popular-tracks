@@ -5,7 +5,7 @@ WORKDIR /app
 COPY requirements.txt /app
 RUN pip install -r requirements.txt
 
-COPY p-tracks.py /app
+COPY p_tracks.py /app
 COPY track_ids.txt /app
 COPY id_secret.json /app
-CMD python p-tracks.py
+CMD python p_tracks.py
