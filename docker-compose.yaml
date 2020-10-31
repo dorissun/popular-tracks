@@ -15,7 +15,7 @@ services:
          - 3306:3306
 
     app:
-      build: app
+      build: .
 
     adminer:
       image: adminer
