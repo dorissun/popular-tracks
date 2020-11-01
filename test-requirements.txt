@@ -1,0 +1,4 @@
+testcontainers[mysql]
+cryptography
+pytest
+mysql-connector-python
