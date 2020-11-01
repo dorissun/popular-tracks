@@ -2,7 +2,7 @@
 
 ## Installation
 
-Make sure docker and docker-compose are installed.
+Make sure docker, docker-compose are installed
 
 ## To run
 
@@ -38,3 +38,11 @@ Example data screenshots
 ![tracks table](tracks.png)
 
 ![track_popularity table](track_popularity.png)
+
+## To run the tests
+
+Make sure tox is installed
+
+```
+tox
+```
