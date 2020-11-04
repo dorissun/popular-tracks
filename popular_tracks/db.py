@@ -2,6 +2,7 @@ import time
 
 import mysql.connector
 
+
 def db_connection_cursor():
     config = {
         "user": "user",
@@ -90,4 +91,3 @@ def save_track_popularity(connection, track_info):
         print(err.msg)
 
     print("Insert into track_popularity")
-

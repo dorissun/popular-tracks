@@ -2,11 +2,7 @@ import requests
 import json
 from datetime import date
 import base64
-import _thread
-import importlib
-import mysql
 
-from popular_tracks import db
 
 def get_access_token(id_secret_file):
     with open(id_secret_file) as f:
@@ -31,7 +27,10 @@ def get_access_token(id_secret_file):
     else:
         print("Requesting access token failed with status code: " + str(r.status_code))
         print(
-            "Please double check that your Spotify Client ID and Client Secret is filled in id_secret.json configuration file."
+            """
+            Please double check that your Spotify Client ID and
+            Client Secret is filled in id_secret.json configuration file.
+            """
         )
         return ""
 
@@ -64,4 +63,3 @@ def get_track(access_token, track_id):
     else:
         print("Requesting track info failed with status code: " + str(r.status_code))
         return {}
-
