@@ -3,6 +3,8 @@ import concurrent.futures
 from popular_tracks import db
 from popular_tracks import api
 
+import logging
+
 
 def fetch_asynch_and_save(access_token, connection, track_ids_file):
     with open(track_ids_file, "r") as f:
@@ -17,10 +19,11 @@ def fetch_asynch_and_save(access_token, connection, track_ids_file):
                     db.save_tracks(connection, data)
                     db.save_track_popularity(connection, data)
                 else:
-                    print("Track has no valid info to save.")
+                    logging.error("Track has no valid info to save.")
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     connection = db.db_connection_cursor()
     db.db_setup(connection)
 

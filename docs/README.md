@@ -44,5 +44,10 @@ Example data screenshots
 Make sure tox is installed
 
 ```
-tox
+tox -p auto
+```
+
+If format is wrong, run
+```
+tox -e format
 ```

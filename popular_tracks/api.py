@@ -2,6 +2,7 @@ import requests
 import json
 from datetime import date
 import base64
+import logging
 
 
 def get_access_token(id_secret_file):
@@ -20,13 +21,15 @@ def get_access_token(id_secret_file):
 
     r = requests.post(url, data=body, headers=headers)
     if r.status_code == 200:
-        print("Requesting access token Okey.")
+        logging.info("Requesting access token Okey.")
         response_dict = json.loads(r.text)
         access_token = response_dict.get("access_token")
         return access_token
     else:
-        print("Requesting access token failed with status code: " + str(r.status_code))
-        print(
+        logging.error(
+            "Requesting access token failed with status code: " + str(r.status_code)
+        )
+        logging.error(
             """
             Please double check that your Spotify Client ID and
             Client Secret is filled in id_secret.json configuration file.
@@ -48,7 +51,7 @@ def get_track(access_token, track_id):
 
     r = requests.get(url, headers=headers, params=params)
     if r.status_code == 200:
-        print("Requesting track info Okey.")
+        logging.info("Requesting track info Okey.")
         r_dict = json.loads(r.text)
         track_info = {
             "id": r_dict.get("id"),
@@ -61,5 +64,7 @@ def get_track(access_token, track_id):
         }
         return track_info
     else:
-        print("Requesting track info failed with status code: " + str(r.status_code))
+        logging.error(
+            "Requesting track info failed with status code: " + str(r.status_code)
+        )
         return {}
