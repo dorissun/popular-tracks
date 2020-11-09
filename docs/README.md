@@ -55,7 +55,7 @@ tox -e format
 
 ## Extend the data model to support playlist and tracks relation.
 
-![ER Diagram]ERD.png
+![ER Diagram](ERD.png)
 
 Extend the data model to include another table called playlist_tracks. It has three columns, fetch_date, playlist_uri and track_uri.
 It assumes that the tracks in a playlist change only once per day.
