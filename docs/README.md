@@ -51,3 +51,12 @@ If format is wrong, run
 ```
 tox -e format
 ```
+
+
+## Extend the data model to support playlist and tracks relation.
+
+![ER Diagram]ERD.png
+
+Extend the data model to include another table called playlist_tracks. It has three columns, fetch_date, playlist_uri and track_uri.
+It assumes that the tracks in a playlist change only once per day.
+And the application should store playlist_uri and track_uri daily into database using Spotify playlist web-api to support the two requirements asked in the 2nd task. 
